@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Günün Tıp Sorusu</title>
+
+<style>
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, Arial, sans-serif;
+  background: #f4f6f8;
+  display: flex;
+  justify-content: center;
+}
+
+.container {
+  width: 100%;
+  max-width: 420px;
+  padding: 16px;
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.title {
+  font-size: 24px;
+  font-weight: 700;
+  color: #1f2d3d;
+}
+
+.date {
+  color: #8a94a6;
+  font-size: 14px;
+}
+
+.card {
+  background: white;
+  border-radius: 16px;
+  padding: 20px;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.06);
+  margin-bottom: 20px;
+  line-height: 1.5;
+}
+
+.option {
+  background: #eef2f6;
+  border-radius: 14px;
+  padding: 16px;
+  margin-bottom: 12px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: 0.2s;
+}
+
+.option:hover {
+  background: #e2e8f0;
+}
+
+.correct {
+  background: #d1fae5 !important;
+}
+
+.wrong {
+  background: #fee2e2 !important;
+}
+
+.cta {
+  display: none;
+  width: 100%;
+  padding: 16px;
+  background: #4f46e5;
+  color: white;
+  border: none;
+  border-radius: 14px;
+  font-size: 16px;
+  font-weight: 700;
+  margin-top: 16px;
+}
+
+.result {
+  display: none;
+  text-align: center;
+  font-weight: 700;
+  margin-top: 12px;
+}
+
+/* ===== AI CARD ===== */
+
+.ai-card {
+  background: #ffffff;
+  border-radius: 20px;
+  padding: 20px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.06);
+  margin-top: 16px;
+}
+
+.ai-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.ai-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: #eef2ff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+}
+
+.ai-title {
+  font-weight: 700;
+  color: #2563eb;
+  font-size: 20px;
+}
+
+.ai-text {
+  color: #6b7280;
+  line-height: 1.5;
+  margin-bottom: 16px;
+}
+
+/* ===== LUMA BUTTON ===== */
+
+.luma-btn {
+  width: 100%;
+  background: linear-gradient(135deg, #4f46e5, #3b82f6);
+  border: none;
+  border-radius: 18px;
+  padding: 18px;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-family: inherit;
+  cursor: pointer;
+}
+
+.luma-left {
+  font-size: 22px;
+}
+
+.luma-text {
+  text-align: left;
+  flex: 1;
+  margin-left: 10px;
+}
+
+.luma-title {
+  font-weight: 700;
+  font-size: 18px;
+}
+
+.luma-sub {
+  font-size: 13px;
+  opacity: 0.9;
+}
+
+.luma-arrow {
+  font-size: 22px;
+  opacity: 0.9;
+}
+.social-proof {
+  background: #fff7ed;
+  color: #c2410c;
+  border-radius: 12px;
+  padding: 10px 14px;
+  font-size: 14px;
+  font-weight: 600;
+  text-align: center;
+  margin-bottom: 16px;
+  border: 1px solid #fed7aa;
+}
+/* ===== TIMER ===== */
+
+.timer-wrap {
+  width: 100%;
+  height: 6px;
+  background: #e5e7eb;
+  border-radius: 999px;
+  overflow: hidden;
+  margin-bottom: 16px;
+}
+
+.timer-bar {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, #22c55e, #ef4444);
+  transition: width linear;
+}
+
+
+</style>
+</head>
+
+<body>
+<div class="container">
+
+  <div class="header">
+    <div class="title">Günün Tıp Sorusu</div>
+    <div class="date" id="todayDate"></div>
+  </div>
+  <div id="socialProof" class="social-proof">
+  🔥 Tıp öğrencilerinin %62'si bu soruyu doğru yapamadı
+  </div>
+  <div id="timerWrap" class="timer-wrap">
+  <div id="timerBar" class="timer-bar"></div>
+  </div>
+
+
+
+  <div class="card">
+    68 yaşında erkek hasta, son birkaç aydır konuşma ve hafıza güçlüğü
+    şikayetleri ile başvuruyor. Nörolojik muayenede belirgin olarak sol
+    temporal lobda asimetrik bulgular saptanıyor. Beyin görüntülemesinde
+    sol oksipital ve her iki posterior parietal bölgede de tutulum
+    izleniyor. Klinik ve radyolojik bulgulara göre hangi tanı en olasıdır?
+  </div>
+
+  <div id="options">
+    <div class="option" onclick="selectAnswer(0)">A) Lewy cisimcikli demans</div>
+    <div class="option" onclick="selectAnswer(1)">B) Vasküler demans</div>
+    <div class="option" onclick="selectAnswer(2)">C) Frontotemporal demansın semantik varyantı</div>
+    <div class="option" onclick="selectAnswer(3)">D) Klasik Alzheimer hastalığı</div>
+    <div class="option" onclick="selectAnswer(4)">E) Alzheimer hastalığının logopenik primer progresif afazi varyantı</div>
+  </div>
+
+<div id="aiCard" class="ai-card" style="display:none">
+
+  <div class="ai-header">
+    <div class="ai-icon">🤖</div>
+    <div class="ai-title">Hazırlan.AI Analiz</div>
+  </div>
+
+  <div class="ai-text">
+    Bu soruyu Hazırlan ile analiz et, detaylı açıklamalar ve çözüm
+    stratejileri al.
+  </div>
+
+  <button class="luma-btn" onclick="goStore()">
+    <span class="luma-left">🤖</span>
+    <div class="luma-text">
+      <div class="luma-title">Hazırlan'a Sor</div>
+      <div class="luma-sub">AI destekli tıp eğitim platformu</div>
+    </div>
+    <span class="luma-arrow">→</span>
+  </button>
+
+</div>
+
+
+</div>
+
+<script>
+function setTodayDate() {
+  const el = document.getElementById("todayDate");
+  if (!el) return;
+
+  const months = [
+    "Ocak","Şubat","Mart","Nisan","Mayıs","Haziran",
+    "Temmuz","Ağustos","Eylül","Ekim","Kasım","Aralık"
+  ];
+
+  const now = new Date();
+  const day = now.getDate();
+  const month = months[now.getMonth()];
+  const year = now.getFullYear();
+
+  el.innerText = `${day} ${month} ${year}`;
+}
+let timerInterval = null;
+let timeLeft = 10;
+
+
+let currentQuestion = 0;
+
+const questions = [
+  {
+    text: `68 yaşında erkek hasta, son birkaç aydır konuşma ve hafıza güçlüğü
+    şikayetleri ile başvuruyor. Nörolojik muayenede belirgin olarak sol
+    temporal lobda asimetrik bulgular saptanıyor. Beyin görüntülemesinde
+    sol oksipital ve her iki posterior parietal bölgede de tutulum
+    izleniyor. Klinik ve radyolojik bulgulara göre hangi tanı en olasıdır?`,
+    options: [
+      "A) Lewy cisimcikli demans",
+      "B) Vasküler demans",
+      "C) Frontotemporal demansın semantik varyantı",
+      "D) Klasik Alzheimer hastalığı",
+      "E) Alzheimer hastalığının logopenik primer progresif afazi varyantı"
+    ],
+    correct: 4,
+    socialProof: "🔥 Tıp öğrencilerinin %62'si bu soruyu doğru yapamadı"
+  },
+  {
+    text: `Aşağıdaki maddelerden hangisinin hücre zarından taşınması,
+    sodyum iyonunun hücre dışından hücre içine doğru olan
+    elektrokimyasal gradyanından enerji sağlayan bir ko-transport
+    mekanizması ile gerçekleşir?`,
+    options: [
+      "A) Hidrojen",
+      "B) Glukoz",
+      "C) Sodyum",
+      "D) Üre",
+      "E) Kalsiyum"
+    ],
+    correct: 1,
+    socialProof: "🔥 Tıp öğrencilerinin %58'i bu soruyu doğru yapamadı"
+  }
+];
+
+const questionCard = document.querySelector(".card");
+const optionsDiv = document.getElementById("options");
+const aiCard = document.getElementById("aiCard");
+
+createNextButton();
+
+function loadQuestion() {
+  const q = questions[currentQuestion];
+  const proofEl = document.getElementById("socialProof");
+if (proofEl) {
+  proofEl.innerText = q.socialProof;
+}
+
+
+  questionCard.innerHTML = q.text;
+  optionsDiv.innerHTML = "";
+  aiCard.style.display = "none";
+
+  q.options.forEach((opt, index) => {
+    const div = document.createElement("div");
+    div.className = "option";
+    div.innerText = opt;
+    div.onclick = () => selectAnswer(index);
+    optionsDiv.appendChild(div);
+  });
+  showTimer();
+  startTimer();
+
+}
+
+function selectAnswer(index) {
+  const options = document.querySelectorAll(".option");
+  const correctIndex = questions[currentQuestion].correct;
+  stopTimer();
+
+
+  options.forEach((opt, i) => {
+    opt.style.pointerEvents = "none";
+
+    if (i === correctIndex) opt.classList.add("correct");
+    if (i === index && index !== correctIndex) opt.classList.add("wrong");
+  });
+
+  // ❗ yanlışsa Luma göster
+  if (index !== correctIndex) {
+    aiCard.style.display = "block";
+    aiCard.scrollIntoView({ behavior: "smooth", block: "center" });
+  }
+
+  // ➡️ ok'u göster
+  if (currentQuestion < questions.length - 1) {
+  document.getElementById("nextBtn").style.display = "block";
+}
+
+}
+
+function createNextButton() {
+  const btn = document.createElement("button");
+  btn.id = "nextBtn";
+  btn.innerText = "➡️";
+
+  // 🎨 style
+  btn.style.position = "fixed";
+  btn.style.right = "20px";
+  btn.style.bottom = "24px";
+  btn.style.width = "56px";
+  btn.style.height = "56px";
+  btn.style.borderRadius = "50%";
+  btn.style.fontSize = "22px";
+  btn.style.border = "none";
+  btn.style.background = "#3b82f6";
+  btn.style.color = "white";
+  btn.style.cursor = "pointer";
+  btn.style.boxShadow = "0 8px 24px rgba(0,0,0,0.25)";
+  btn.style.display = "none";
+  btn.style.zIndex = "999";
+
+  btn.onclick = () => {
+    currentQuestion++;
+    if (currentQuestion < questions.length) {
+      loadQuestion();
+      btn.style.display = "none";
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+  };
+
+  // 🔥 EN KRİTİK SATIR — DOM’a ekle
+  document.body.appendChild(btn);
+}
+
+
+function goStore() {
+  window.open("https://hazirlan.app", "_blank");
+}
+
+function startTimer() {
+  clearInterval(timerInterval);
+
+  const bar = document.getElementById("timerBar");
+  if (!bar) return;
+
+  timeLeft = 10;
+  bar.style.transition = "none";
+  bar.style.width = "100%";
+
+  // küçük reflow hack
+  bar.offsetHeight;
+
+  bar.style.transition = "width 15s linear";
+  bar.style.width = "0%";
+
+  timerInterval = setTimeout(() => {
+    handleTimeUp();
+  }, 15000);
+}
+
+function stopTimer() {
+  clearInterval(timerInterval);
+  const wrap = document.getElementById("timerWrap");
+  if (wrap) wrap.style.display = "none";
+}
+
+function showTimer() {
+  const wrap = document.getElementById("timerWrap");
+  if (wrap) wrap.style.display = "block";
+}
+
+function handleTimeUp() {
+  const correctIndex = questions[currentQuestion].correct;
+  const options = document.querySelectorAll(".option");
+
+  options.forEach((opt, i) => {
+    opt.style.pointerEvents = "none";
+    if (i === correctIndex) opt.classList.add("correct");
+  });
+
+  // süre dolunca Luma göster
+  aiCard.style.display = "block";
+
+  // next buton (son soru değilse)
+  if (currentQuestion < questions.length - 1) {
+    document.getElementById("nextBtn").style.display = "block";
+  }
+}
+
+
+
+// İlk soruyu yükle
+loadQuestion();
+setTodayDate();
+</script>
+
+
+
+</body>
+</html>
