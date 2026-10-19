@@ -13,7 +13,7 @@ Most ads tell people what the product does. This one lets them feel the problem 
 2. **Pressure:** a 15-second countdown bar and a social proof line ("62% of medical students got this wrong").
 3. **Moment of need:** a wrong answer, or running out of time, shows the correct option and brings up
    the *Hazırlan.AI Analysis* card: "Ask Hazırlan" for a detailed explanation.
-4. **CTA:** the button sends the user to the app. Get it right and you can move on to the next question.
+4. **CTA:** the button sends the user to the app. Either way you can move on to the next question, and the last question always ends on the CTA.
 
 The ad shows the product only at the moment the user wants it most, right after they miss a question.
 
@@ -22,6 +22,7 @@ The ad shows the product only at the moment the user wants it most, right after 
 - One self-contained `index.html`: inline CSS and JS, no dependencies, about 10 KB. It's well under
   Google Ads' HTML5 size limits and needs no build step.
 - Mobile-first layout (max width 420px) with tap targets sized for thumbs.
+- Animated feedback (a shake on a wrong answer, a pop on a correct one, a countdown that turns red in the last 5 seconds) that respects `prefers-reduced-motion`.
 - Questions are stored as data (`questions[]`), so new creatives are a text change, not a code change.
 
 ## Run locally

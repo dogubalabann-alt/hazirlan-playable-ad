@@ -2,284 +2,302 @@
 <html lang="tr">
 <head>
 <meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Günün Tıp Sorusu</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+<title>Günün Tıp Sorusu · Hazırlan</title>
 
 <style>
+:root {
+  --brand: #4f46e5;
+  --brand-2: #3b82f6;
+  --ink: #0f172a;
+  --muted: #64748b;
+  --line: #e2e8f0;
+  --surface: #ffffff;
+  --bg: #f1f5ff;
+  --ok: #16a34a;
+  --ok-bg: #dcfce7;
+  --bad: #dc2626;
+  --bad-bg: #fee2e2;
+  --warn: #ea580c;
+}
+
+* { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+
+html, body { margin: 0; min-height: 100%; }
+
 body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, Arial, sans-serif;
-  background: #f4f6f8;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+  color: var(--ink);
+  background:
+    radial-gradient(120% 60% at 50% -10%, #dfe4ff 0%, rgba(223,228,255,0) 60%),
+    var(--bg);
   display: flex;
   justify-content: center;
 }
 
-.container {
+.app {
   width: 100%;
   max-width: 420px;
-  padding: 16px;
+  padding: 16px 16px 32px;
 }
 
-.header {
-  text-align: center;
-  margin-bottom: 20px;
-}
-
-.title {
-  font-size: 24px;
-  font-weight: 700;
-  color: #1f2d3d;
-}
-
-.date {
-  color: #8a94a6;
-  font-size: 14px;
-}
-
-.card {
-  background: white;
-  border-radius: 16px;
-  padding: 20px;
-  box-shadow: 0 6px 20px rgba(0,0,0,0.06);
-  margin-bottom: 20px;
-  line-height: 1.5;
-}
-
-.option {
-  background: #eef2f6;
-  border-radius: 14px;
-  padding: 16px;
-  margin-bottom: 12px;
-  cursor: pointer;
-  font-weight: 500;
-  transition: 0.2s;
-}
-
-.option:hover {
-  background: #e2e8f0;
-}
-
-.correct {
-  background: #d1fae5 !important;
-}
-
-.wrong {
-  background: #fee2e2 !important;
-}
-
-.cta {
-  display: none;
-  width: 100%;
-  padding: 16px;
-  background: #4f46e5;
-  color: white;
-  border: none;
-  border-radius: 14px;
-  font-size: 16px;
-  font-weight: 700;
-  margin-top: 16px;
-}
-
-.result {
-  display: none;
-  text-align: center;
-  font-weight: 700;
-  margin-top: 12px;
-}
-
-/* ===== AI CARD ===== */
-
-.ai-card {
-  background: #ffffff;
-  border-radius: 20px;
-  padding: 20px;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.06);
-  margin-top: 16px;
-}
-
-.ai-header {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  margin-bottom: 10px;
-}
-
-.ai-icon {
-  width: 36px;
-  height: 36px;
-  border-radius: 50%;
-  background: #eef2ff;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 18px;
-}
-
-.ai-title {
-  font-weight: 700;
-  color: #2563eb;
-  font-size: 20px;
-}
-
-.ai-text {
-  color: #6b7280;
-  line-height: 1.5;
-  margin-bottom: 16px;
-}
-
-/* ===== LUMA BUTTON ===== */
-
-.luma-btn {
-  width: 100%;
-  background: linear-gradient(135deg, #4f46e5, #3b82f6);
-  border: none;
-  border-radius: 18px;
-  padding: 18px;
-  color: white;
+/* ===== Brand bar ===== */
+.brand {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  font-family: inherit;
+  margin-bottom: 18px;
+}
+.brand-left { display: flex; align-items: center; gap: 10px; }
+.logo {
+  width: 34px; height: 34px;
+  border-radius: 10px;
+  background: linear-gradient(135deg, var(--brand), var(--brand-2));
+  color: #fff; font-weight: 800; font-size: 18px;
+  display: grid; place-items: center;
+  box-shadow: 0 6px 14px rgba(79,70,229,.35);
+}
+.brand-name { font-weight: 800; font-size: 17px; letter-spacing: -.2px; }
+.brand-tag {
+  font-size: 12px; font-weight: 700;
+  color: var(--brand);
+  background: #e0e7ff;
+  padding: 5px 10px;
+  border-radius: 999px;
+}
+
+/* ===== Header ===== */
+.head { margin-bottom: 14px; }
+.eyebrow {
+  font-size: 13px; font-weight: 600; color: var(--muted);
+  display: flex; justify-content: space-between; align-items: center;
+}
+.title {
+  font-size: 26px; font-weight: 800; letter-spacing: -.5px;
+  margin: 4px 0 0;
+}
+
+/* ===== Timer ===== */
+.timer {
+  display: flex; align-items: center; gap: 10px;
+  margin: 14px 0 12px;
+}
+.timer-track {
+  flex: 1; height: 8px;
+  background: #e5e7eb; border-radius: 999px; overflow: hidden;
+}
+.timer-bar {
+  height: 100%; width: 100%;
+  background: linear-gradient(90deg, #22c55e, #84cc16);
+  border-radius: 999px;
+  transform-origin: left;
+}
+.timer-num {
+  min-width: 40px; text-align: right;
+  font-variant-numeric: tabular-nums;
+  font-weight: 800; font-size: 15px; color: var(--ink);
+}
+.timer.urgent .timer-bar { background: linear-gradient(90deg, #f97316, #ef4444); }
+.timer.urgent .timer-num { color: var(--bad); animation: pulse .6s ease-in-out infinite alternate; }
+.timer.hidden { visibility: hidden; }
+
+/* ===== Social proof ===== */
+.proof {
+  display: flex; align-items: center; gap: 8px;
+  background: #fff7ed;
+  border: 1px solid #fed7aa;
+  color: #9a3412;
+  border-radius: 12px;
+  padding: 10px 12px;
+  font-size: 13.5px; font-weight: 600;
+  margin-bottom: 14px;
+}
+
+/* ===== Question ===== */
+.card {
+  background: var(--surface);
+  border-radius: 18px;
+  padding: 18px;
+  box-shadow: 0 1px 2px rgba(15,23,42,.04), 0 10px 30px rgba(15,23,42,.06);
+  margin-bottom: 14px;
+  font-size: 15.5px; line-height: 1.6;
+}
+.card-label {
+  font-size: 12px; font-weight: 700; letter-spacing: .6px;
+  text-transform: uppercase; color: var(--brand);
+  margin-bottom: 8px;
+}
+
+/* ===== Options ===== */
+.options { display: grid; gap: 10px; }
+.option {
+  display: flex; align-items: center; gap: 12px;
+  width: 100%;
+  text-align: left;
+  font: inherit; font-size: 15px; font-weight: 500; color: var(--ink);
+  background: var(--surface);
+  border: 1.5px solid var(--line);
+  border-radius: 14px;
+  padding: 13px 14px;
+  cursor: pointer;
+  transition: transform .12s ease, border-color .15s ease, background .15s ease;
+  animation: rise .35s ease both;
+}
+.option:active { transform: scale(.98); }
+@media (hover: hover) { .option:hover { border-color: #c7d2fe; background: #f8faff; } }
+.letter {
+  flex: none;
+  width: 30px; height: 30px; border-radius: 9px;
+  display: grid; place-items: center;
+  background: #eef2ff; color: var(--brand);
+  font-weight: 800; font-size: 14px;
+}
+.option .mark { margin-left: auto; font-weight: 800; font-size: 18px; }
+.option.correct { border-color: var(--ok); background: var(--ok-bg); animation: pop .35s ease; }
+.option.correct .letter { background: var(--ok); color: #fff; }
+.option.wrong { border-color: var(--bad); background: var(--bad-bg); animation: shake .4s ease; }
+.option.wrong .letter { background: var(--bad); color: #fff; }
+.option.dim { opacity: .5; animation: none; }
+.options.locked .option { pointer-events: none; }
+
+/* ===== Result ===== */
+.result {
+  display: none;
+  margin-top: 14px;
+  padding: 12px 14px;
+  border-radius: 14px;
+  font-weight: 700; font-size: 15px;
+  animation: rise .3s ease both;
+}
+.result.ok { display: block; background: var(--ok-bg); color: #166534; }
+.result.bad { display: block; background: var(--bad-bg); color: #991b1b; }
+
+/* ===== AI card ===== */
+.ai {
+  display: none;
+  margin-top: 14px;
+  border-radius: 20px;
+  padding: 18px;
+  color: #fff;
+  background:
+    radial-gradient(120% 120% at 100% 0%, rgba(255,255,255,.18) 0%, rgba(255,255,255,0) 50%),
+    linear-gradient(135deg, var(--brand), var(--brand-2));
+  box-shadow: 0 16px 36px rgba(79,70,229,.35);
+  animation: rise .45s cubic-bezier(.2,.8,.2,1) both;
+}
+.ai.show { display: block; }
+.ai-head { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
+.ai-icon {
+  width: 36px; height: 36px; border-radius: 12px;
+  background: rgba(255,255,255,.18);
+  display: grid; place-items: center; font-size: 18px;
+}
+.ai-title { font-weight: 800; font-size: 18px; }
+.ai-text { font-size: 14.5px; line-height: 1.5; opacity: .92; margin: 0 0 14px; }
+.ai-points { list-style: none; padding: 0; margin: 0 0 16px; display: grid; gap: 6px; }
+.ai-points li { font-size: 14px; font-weight: 600; }
+.ai-points li::before { content: "✓"; margin-right: 8px; opacity: .9; }
+
+.cta {
+  display: flex; align-items: center; justify-content: center; gap: 8px;
+  width: 100%;
+  border: none; border-radius: 14px;
+  padding: 16px;
+  font: inherit; font-size: 16px; font-weight: 800;
+  cursor: pointer;
+  background: #fff; color: var(--brand);
+  box-shadow: 0 6px 16px rgba(15,23,42,.18);
+  animation: nudge 1.6s ease-in-out .6s infinite;
+}
+.cta:active { transform: scale(.98); }
+
+/* ===== Next ===== */
+.next {
+  display: none;
+  width: 100%;
+  margin-top: 12px;
+  padding: 15px;
+  border-radius: 14px;
+  border: 1.5px solid var(--line);
+  background: var(--surface);
+  font: inherit; font-size: 15px; font-weight: 700; color: var(--ink);
   cursor: pointer;
 }
+.next.show { display: block; animation: rise .3s ease both; }
 
-.luma-left {
-  font-size: 22px;
+/* ===== Animations ===== */
+@keyframes rise { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+@keyframes pop { 0% { transform: scale(1); } 50% { transform: scale(1.03); } 100% { transform: scale(1); } }
+@keyframes shake {
+  0%,100% { transform: translateX(0); }
+  20% { transform: translateX(-6px); } 40% { transform: translateX(6px); }
+  60% { transform: translateX(-4px); } 80% { transform: translateX(4px); }
 }
+@keyframes pulse { from { opacity: 1; } to { opacity: .45; } }
+@keyframes nudge { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-3px); } }
 
-.luma-text {
-  text-align: left;
-  flex: 1;
-  margin-left: 10px;
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; }
 }
-
-.luma-title {
-  font-weight: 700;
-  font-size: 18px;
-}
-
-.luma-sub {
-  font-size: 13px;
-  opacity: 0.9;
-}
-
-.luma-arrow {
-  font-size: 22px;
-  opacity: 0.9;
-}
-.social-proof {
-  background: #fff7ed;
-  color: #c2410c;
-  border-radius: 12px;
-  padding: 10px 14px;
-  font-size: 14px;
-  font-weight: 600;
-  text-align: center;
-  margin-bottom: 16px;
-  border: 1px solid #fed7aa;
-}
-/* ===== TIMER ===== */
-
-.timer-wrap {
-  width: 100%;
-  height: 6px;
-  background: #e5e7eb;
-  border-radius: 999px;
-  overflow: hidden;
-  margin-bottom: 16px;
-}
-
-.timer-bar {
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(90deg, #22c55e, #ef4444);
-  transition: width linear;
-}
-
-
 </style>
 </head>
 
 <body>
-<div class="container">
+<main class="app">
 
-  <div class="header">
-    <div class="title">Günün Tıp Sorusu</div>
-    <div class="date" id="todayDate"></div>
-  </div>
-  <div id="socialProof" class="social-proof">
-  🔥 Tıp öğrencilerinin %62'si bu soruyu doğru yapamadı
-  </div>
-  <div id="timerWrap" class="timer-wrap">
-  <div id="timerBar" class="timer-bar"></div>
+  <div class="brand">
+    <div class="brand-left">
+      <div class="logo">H</div>
+      <div class="brand-name">Hazırlan</div>
+    </div>
+    <div class="brand-tag">TUS</div>
   </div>
 
+  <div class="head">
+    <div class="eyebrow">
+      <span id="todayDate"></span>
+      <span id="progress"></span>
+    </div>
+    <h1 class="title">Günün Tıp Sorusu</h1>
+  </div>
 
+  <div id="timer" class="timer">
+    <div class="timer-track"><div id="timerBar" class="timer-bar"></div></div>
+    <div id="timerNum" class="timer-num">15s</div>
+  </div>
+
+  <div class="proof"><span>🔥</span><span id="proofText"></span></div>
 
   <div class="card">
-    68 yaşında erkek hasta, son birkaç aydır konuşma ve hafıza güçlüğü
-    şikayetleri ile başvuruyor. Nörolojik muayenede belirgin olarak sol
-    temporal lobda asimetrik bulgular saptanıyor. Beyin görüntülemesinde
-    sol oksipital ve her iki posterior parietal bölgede de tutulum
-    izleniyor. Klinik ve radyolojik bulgulara göre hangi tanı en olasıdır?
+    <div class="card-label">Klinik vaka</div>
+    <div id="questionText"></div>
   </div>
 
-  <div id="options">
-    <div class="option" onclick="selectAnswer(0)">A) Lewy cisimcikli demans</div>
-    <div class="option" onclick="selectAnswer(1)">B) Vasküler demans</div>
-    <div class="option" onclick="selectAnswer(2)">C) Frontotemporal demansın semantik varyantı</div>
-    <div class="option" onclick="selectAnswer(3)">D) Klasik Alzheimer hastalığı</div>
-    <div class="option" onclick="selectAnswer(4)">E) Alzheimer hastalığının logopenik primer progresif afazi varyantı</div>
-  </div>
+  <div id="options" class="options"></div>
 
-<div id="aiCard" class="ai-card" style="display:none">
+  <div id="result" class="result"></div>
 
-  <div class="ai-header">
-    <div class="ai-icon">🤖</div>
-    <div class="ai-title">Hazırlan.AI Analiz</div>
-  </div>
-
-  <div class="ai-text">
-    Bu soruyu Hazırlan ile analiz et, detaylı açıklamalar ve çözüm
-    stratejileri al.
-  </div>
-
-  <button class="luma-btn" onclick="goStore()">
-    <span class="luma-left">🤖</span>
-    <div class="luma-text">
-      <div class="luma-title">Hazırlan'a Sor</div>
-      <div class="luma-sub">AI destekli tıp eğitim platformu</div>
+  <section id="ai" class="ai">
+    <div class="ai-head">
+      <div class="ai-icon">🤖</div>
+      <div class="ai-title">Hazırlan.AI Analiz</div>
     </div>
-    <span class="luma-arrow">→</span>
-  </button>
+    <p id="aiText" class="ai-text"></p>
+    <ul class="ai-points">
+      <li>Detaylı açıklama ve çözüm stratejisi</li>
+      <li>Benzer sorularla eksik konunu kapat</li>
+      <li>Her gün yeni TUS sorusu</li>
+    </ul>
+    <button class="cta" onclick="goStore()">Hazırlan'a Sor <span>→</span></button>
+  </section>
 
-</div>
+  <button id="nextBtn" class="next" onclick="nextQuestion()">Sonraki soru →</button>
 
-
-</div>
+</main>
 
 <script>
-function setTodayDate() {
-  const el = document.getElementById("todayDate");
-  if (!el) return;
-
-  const months = [
-    "Ocak","Şubat","Mart","Nisan","Mayıs","Haziran",
-    "Temmuz","Ağustos","Eylül","Ekim","Kasım","Aralık"
-  ];
-
-  const now = new Date();
-  const day = now.getDate();
-  const month = months[now.getMonth()];
-  const year = now.getFullYear();
-
-  el.innerText = `${day} ${month} ${year}`;
-}
-let timerInterval = null;
-let timeLeft = 10;
-
-
-let currentQuestion = 0;
+const TIME_LIMIT = 15; // seconds
+const STORE_URL = "https://hazirlan.app";
 
 const questions = [
   {
@@ -289,185 +307,149 @@ const questions = [
     sol oksipital ve her iki posterior parietal bölgede de tutulum
     izleniyor. Klinik ve radyolojik bulgulara göre hangi tanı en olasıdır?`,
     options: [
-      "A) Lewy cisimcikli demans",
-      "B) Vasküler demans",
-      "C) Frontotemporal demansın semantik varyantı",
-      "D) Klasik Alzheimer hastalığı",
-      "E) Alzheimer hastalığının logopenik primer progresif afazi varyantı"
+      "Lewy cisimcikli demans",
+      "Vasküler demans",
+      "Frontotemporal demansın semantik varyantı",
+      "Klasik Alzheimer hastalığı",
+      "Alzheimer hastalığının logopenik primer progresif afazi varyantı"
     ],
     correct: 4,
-    socialProof: "🔥 Tıp öğrencilerinin %62'si bu soruyu doğru yapamadı"
+    socialProof: "Tıp öğrencilerinin %62'si bu soruyu doğru yapamadı"
   },
   {
     text: `Aşağıdaki maddelerden hangisinin hücre zarından taşınması,
     sodyum iyonunun hücre dışından hücre içine doğru olan
     elektrokimyasal gradyanından enerji sağlayan bir ko-transport
     mekanizması ile gerçekleşir?`,
-    options: [
-      "A) Hidrojen",
-      "B) Glukoz",
-      "C) Sodyum",
-      "D) Üre",
-      "E) Kalsiyum"
-    ],
+    options: ["Hidrojen", "Glukoz", "Sodyum", "Üre", "Kalsiyum"],
     correct: 1,
-    socialProof: "🔥 Tıp öğrencilerinin %58'i bu soruyu doğru yapamadı"
+    socialProof: "Tıp öğrencilerinin %58'i bu soruyu doğru yapamadı"
   }
 ];
 
-const questionCard = document.querySelector(".card");
-const optionsDiv = document.getElementById("options");
-const aiCard = document.getElementById("aiCard");
+const LETTERS = "ABCDE";
+const $ = (id) => document.getElementById(id);
 
-createNextButton();
+let current = 0;
+let timerId = null;
+let answered = false;
+
+function setTodayDate() {
+  const months = ["Ocak","Şubat","Mart","Nisan","Mayıs","Haziran",
+    "Temmuz","Ağustos","Eylül","Ekim","Kasım","Aralık"];
+  const now = new Date();
+  $("todayDate").textContent = `${now.getDate()} ${months[now.getMonth()]} ${now.getFullYear()}`;
+}
 
 function loadQuestion() {
-  const q = questions[currentQuestion];
-  const proofEl = document.getElementById("socialProof");
-if (proofEl) {
-  proofEl.innerText = q.socialProof;
-}
+  const q = questions[current];
+  answered = false;
 
+  $("progress").textContent = `Soru ${current + 1}/${questions.length}`;
+  $("proofText").textContent = q.socialProof;
+  $("questionText").textContent = q.text.replace(/\s+/g, " ").trim();
+  $("result").className = "result";
+  $("ai").classList.remove("show");
+  $("nextBtn").classList.remove("show");
 
-  questionCard.innerHTML = q.text;
-  optionsDiv.innerHTML = "";
-  aiCard.style.display = "none";
-
-  q.options.forEach((opt, index) => {
-    const div = document.createElement("div");
-    div.className = "option";
-    div.innerText = opt;
-    div.onclick = () => selectAnswer(index);
-    optionsDiv.appendChild(div);
+  const list = $("options");
+  list.className = "options";
+  list.innerHTML = "";
+  q.options.forEach((opt, i) => {
+    const btn = document.createElement("button");
+    btn.className = "option";
+    btn.style.animationDelay = `${i * 50}ms`;
+    btn.innerHTML = `<span class="letter">${LETTERS[i]}</span><span></span><span class="mark"></span>`;
+    btn.children[1].textContent = opt;
+    btn.onclick = () => finish(i);
+    list.appendChild(btn);
   });
-  showTimer();
+
   startTimer();
-
-}
-
-function selectAnswer(index) {
-  const options = document.querySelectorAll(".option");
-  const correctIndex = questions[currentQuestion].correct;
-  stopTimer();
-
-
-  options.forEach((opt, i) => {
-    opt.style.pointerEvents = "none";
-
-    if (i === correctIndex) opt.classList.add("correct");
-    if (i === index && index !== correctIndex) opt.classList.add("wrong");
-  });
-
-  // ❗ yanlışsa Luma göster
-  if (index !== correctIndex) {
-    aiCard.style.display = "block";
-    aiCard.scrollIntoView({ behavior: "smooth", block: "center" });
-  }
-
-  // ➡️ ok'u göster
-  if (currentQuestion < questions.length - 1) {
-  document.getElementById("nextBtn").style.display = "block";
-}
-
-}
-
-function createNextButton() {
-  const btn = document.createElement("button");
-  btn.id = "nextBtn";
-  btn.innerText = "➡️";
-
-  // 🎨 style
-  btn.style.position = "fixed";
-  btn.style.right = "20px";
-  btn.style.bottom = "24px";
-  btn.style.width = "56px";
-  btn.style.height = "56px";
-  btn.style.borderRadius = "50%";
-  btn.style.fontSize = "22px";
-  btn.style.border = "none";
-  btn.style.background = "#3b82f6";
-  btn.style.color = "white";
-  btn.style.cursor = "pointer";
-  btn.style.boxShadow = "0 8px 24px rgba(0,0,0,0.25)";
-  btn.style.display = "none";
-  btn.style.zIndex = "999";
-
-  btn.onclick = () => {
-    currentQuestion++;
-    if (currentQuestion < questions.length) {
-      loadQuestion();
-      btn.style.display = "none";
-      window.scrollTo({ top: 0, behavior: "smooth" });
-    }
-  };
-
-  // 🔥 EN KRİTİK SATIR — DOM’a ekle
-  document.body.appendChild(btn);
-}
-
-
-function goStore() {
-  window.open("https://hazirlan.app", "_blank");
 }
 
 function startTimer() {
-  clearInterval(timerInterval);
+  const timer = $("timer");
+  const bar = $("timerBar");
+  const num = $("timerNum");
+  const start = performance.now();
 
-  const bar = document.getElementById("timerBar");
-  if (!bar) return;
+  timer.className = "timer";
+  cancelAnimationFrame(timerId);
 
-  timeLeft = 10;
-  bar.style.transition = "none";
-  bar.style.width = "100%";
-
-  // küçük reflow hack
-  bar.offsetHeight;
-
-  bar.style.transition = "width 15s linear";
-  bar.style.width = "0%";
-
-  timerInterval = setTimeout(() => {
-    handleTimeUp();
-  }, 15000);
+  const tick = (t) => {
+    const left = Math.max(0, TIME_LIMIT - (t - start) / 1000);
+    bar.style.transform = `scaleX(${left / TIME_LIMIT})`;
+    num.textContent = `${Math.ceil(left)}s`;
+    timer.classList.toggle("urgent", left <= 5);
+    if (left <= 0) return finish(null);
+    timerId = requestAnimationFrame(tick);
+  };
+  timerId = requestAnimationFrame(tick);
 }
 
-function stopTimer() {
-  clearInterval(timerInterval);
-  const wrap = document.getElementById("timerWrap");
-  if (wrap) wrap.style.display = "none";
-}
+// index = chosen option, or null when time runs out
+function finish(index) {
+  if (answered) return;
+  answered = true;
+  cancelAnimationFrame(timerId);
+  $("timer").classList.add("hidden");
 
-function showTimer() {
-  const wrap = document.getElementById("timerWrap");
-  if (wrap) wrap.style.display = "block";
-}
+  const correct = questions[current].correct;
+  const isRight = index === correct;
+  const list = $("options");
+  list.classList.add("locked");
 
-function handleTimeUp() {
-  const correctIndex = questions[currentQuestion].correct;
-  const options = document.querySelectorAll(".option");
-
-  options.forEach((opt, i) => {
-    opt.style.pointerEvents = "none";
-    if (i === correctIndex) opt.classList.add("correct");
+  [...list.children].forEach((el, i) => {
+    if (i === correct) {
+      el.classList.add("correct");
+      el.querySelector(".mark").textContent = "✓";
+    } else if (i === index) {
+      el.classList.add("wrong");
+      el.querySelector(".mark").textContent = "✕";
+    } else {
+      el.classList.add("dim");
+    }
   });
 
-  // süre dolunca Luma göster
-  aiCard.style.display = "block";
-
-  // next buton (son soru değilse)
-  if (currentQuestion < questions.length - 1) {
-    document.getElementById("nextBtn").style.display = "block";
+  const result = $("result");
+  if (isRight) {
+    result.className = "result ok";
+    result.textContent = "🎉 Doğru! Çoğu kişiden iyisin.";
+  } else {
+    result.className = "result bad";
+    result.textContent = index === null
+      ? `⏱ Süre doldu. Doğru cevap: ${LETTERS[correct]}`
+      : `Yanlış. Doğru cevap: ${LETTERS[correct]}`;
   }
+
+  const isLast = current === questions.length - 1;
+
+  // Show the AI tutor at the moment of need: a miss, or the end of the quiz
+  if (!isRight || isLast) {
+    const ai = $("ai");
+    $("aiText").textContent = isRight
+      ? "Her gün böyle sorularla TUS'a hazırlan; Hazırlan zayıf konularını bulsun."
+      : "Bu soruyu Hazırlan ile analiz et; neden yanıldığını adım adım gör.";
+    ai.classList.add("show");
+    setTimeout(() => ai.scrollIntoView({ behavior: "smooth", block: "center" }), 150);
+  }
+
+  if (!isLast) $("nextBtn").classList.add("show");
 }
 
+function nextQuestion() {
+  current++;
+  loadQuestion();
+  window.scrollTo({ top: 0, behavior: "smooth" });
+}
 
+function goStore() {
+  window.open(STORE_URL, "_blank");
+}
 
-// İlk soruyu yükle
-loadQuestion();
 setTodayDate();
+loadQuestion();
 </script>
-
-
-
 </body>
 </html>
